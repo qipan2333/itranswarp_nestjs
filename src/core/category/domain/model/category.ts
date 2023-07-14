@@ -1,5 +1,4 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
-import { ArticleParams } from '../params/article_params';
 import { CategoryParams } from '../params/category_params';
 
 @Entity()

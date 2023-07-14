@@ -1,5 +1,4 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { Category } from '../../domain/model/category';
 import { ArticleService } from '../../domain/service/article_service';
 import { ArticleForm } from '../form/article_form';
 import { Article } from '../../domain/model/article';
