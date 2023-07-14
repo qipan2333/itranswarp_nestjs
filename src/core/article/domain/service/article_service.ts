@@ -26,7 +26,6 @@ export class ArticleService {
             queryRunner.commitTransaction;
             return article;
         } catch(err) {
-            console.log(err);
             await queryRunner.rollbackTransaction();
             return null;
         } finally {

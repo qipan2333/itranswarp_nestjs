@@ -5,19 +5,24 @@ import { AppService } from './app.service';
 import { ArticleModule } from './core/article/article.module';
 import { WinstonModule } from 'nest-winston';
 import * as winston from 'winston';
+import configuration from './config/configration'
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: 'localhost',
-      port: 3306,
-      username: 'root',
-      password: '123456',
-      database: 'itranswarp',
-      autoLoadEntities: true,
-      synchronize: false,
+    ConfigModule.forRoot({
+      ignoreEnvFile: true,
+      load: [configuration],
+      isGlobal: true,
     }),
+
+    TypeOrmModule.forRootAsync({
+      useFactory: (
+        configService: ConfigService,
+      ) => configService.get<object>('db.mysql'),
+      inject: [ConfigService],
+    }),
+
     WinstonModule.forRoot({
       transports: [
         new winston.transports.Console(),
@@ -29,4 +34,6 @@ import * as winston from 'winston';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule {
+  constructor(private readonly configService: ConfigService) {}
+}

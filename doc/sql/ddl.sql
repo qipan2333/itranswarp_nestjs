@@ -8,7 +8,7 @@ CREATE TABLE article (
   publishAt BIGINT,
   textId varchar(36) NOT NULL,
   updatedAt BIGINT,
-  userId Bvarchar(36) NOT NULL,
+  userId varchar(36) NOT NULL,
   version BIGINT DEFAULT 0,
   views BIGINT DEFAULT 0,
   name VARCHAR(100) NOT NULL,
