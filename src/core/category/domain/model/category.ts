@@ -16,17 +16,21 @@ export class Category {
   private description: string;
 
   @Column({ nullable: false })
+  private displayOrder: number;
+
+  @Column({ nullable: false })
   private createdAt: number;
 
   @Column()
   private updatedAt: number;
 
-  constructor(params?: CategoryParams) {
+  constructor(displayOrder: number, params?: CategoryParams) {
     if(params) {
       this.name = params.getName();
       this.tag = params.getTags();
       this.description = params.getDescription();
       this.createdAt = new Date().getTime();
+      this.displayOrder = displayOrder;
     }
   }
 }

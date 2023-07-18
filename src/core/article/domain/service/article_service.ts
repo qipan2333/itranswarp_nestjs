@@ -1,36 +1,27 @@
 import { Injectable } from '@nestjs/common';
 import { Article } from '../model/article';
 import { ArticleParams } from '../params/article_params';
-import { DataSource } from 'typeorm';
+import { QueryRunner } from 'typeorm';
 import { TextContent } from '../model/text_content';
-import { randomUUID } from 'crypto';
+import { TransactionWrapper } from 'src/common/transaction/transaction.wrapper';
 
 @Injectable()
 export class ArticleService {
     
-    constructor(private dataSource :DataSource) {
+    constructor(private transactionWrapper: TransactionWrapper) {
 
     }
     
     public async createArticle(params :ArticleParams): Promise<Article> {
-        
-        const queryRunner = this.dataSource.createQueryRunner();
-        await queryRunner.connect();
-        await queryRunner.startTransaction();
-        try {
-            let textContent = new TextContent(Math.random().toString(), "sssssssss");
+        return this.transactionWrapper.wrapper(params, null, this.create);
+    }
+
+    private async create(queryRunner: QueryRunner, params :ArticleParams) {
+        let textContent = new TextContent(Math.random().toString(), "sssssssss");
             await queryRunner.manager.save(textContent);
             let article = new Article(params);
             article.textSaved(textContent.getId());
             await queryRunner.manager.save(article);
-            queryRunner.commitTransaction;
             return article;
-        } catch(err) {
-            await queryRunner.rollbackTransaction();
-            return null;
-        } finally {
-            await queryRunner.release();
-        }
     }
-
 }
