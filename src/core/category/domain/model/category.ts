@@ -3,34 +3,42 @@ import { CategoryParams } from '../params/category_params';
 
 @Entity()
 export class Category {
-  @PrimaryGeneratedColumn('uuid')
-  private id: string;
+  @PrimaryGeneratedColumn('uuid', { name: 'id' })
+  public _id: string;
 
-  @Column({ nullable: false, length: 100 })
-  private name: string;
+  @Column({ name: 'name', nullable: false, length: 100 })
+  public _name: string;
 
-  @Column({ nullable: false, length: 32 })
-  private tag: string;
+  @Column({ name: 'tag', nullable: false, length: 32 })
+  public _tag: string;
 
-  @Column({ nullable: false, length: 1000 })
-  private description: string;
+  @Column({ name: 'description', nullable: false, length: 1000 })
+  public _description: string;
 
-  @Column({ nullable: false })
-  private displayOrder: number;
+  @Column({ name: 'displayOrder', nullable: false })
+  public _displayOrder: number;
 
-  @Column({ nullable: false })
-  private createdAt: number;
+  @Column({ name: 'createdAt', nullable: false })
+  public _createdAt: number;
 
-  @Column()
-  private updatedAt: number;
+  @Column({ name: 'updatedAt' })
+  public _updatedAt: number;
 
   constructor(displayOrder: number, params?: CategoryParams) {
     if(params) {
-      this.name = params.getName();
-      this.tag = params.getTags();
-      this.description = params.getDescription();
-      this.createdAt = new Date().getTime();
-      this.displayOrder = displayOrder;
+      this._name = params.getName();
+      this._tag = params.getTags();
+      this._description = params.getDescription();
+      this._createdAt = new Date().getTime();
+      this._displayOrder = displayOrder;
     }
+  }
+
+  public getId(): String {
+    return this._id;
+  }
+
+  public getDisplayOrder(): number {
+    return this._displayOrder;
   }
 }

@@ -13,7 +13,7 @@ export class TransactionWrapper {
         await queryRunner.startTransaction();
         try { 
             const returnData =  await callback(queryRunner, data);
-            queryRunner.commitTransaction();
+            await queryRunner.commitTransaction();
             return returnData;
         } catch(err) {
             await queryRunner.rollbackTransaction();
