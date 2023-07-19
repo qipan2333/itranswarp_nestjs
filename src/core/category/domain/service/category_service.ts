@@ -18,7 +18,7 @@ export class CategoryService {
     public async createCategory(params: CategoryParams): Promise<Category> {
         return this.transactionWrapper.wrapper(params, null, async (queryRunner: QueryRunner, params :CategoryParams) => {
             const categories = await queryRunner.manager.find(Category);
-            const displayOrder = categories.length === 0 ? 0 : Math.max(...categories.map(c => c.getDisplayOrder()));
+            const displayOrder = categories.length === 0 ? 0 : Math.max(...categories.map(c => c.getDisplayOrder())) + 1;
             const category = new Category(displayOrder, params);
             await queryRunner.manager.save(category);
             return category;

@@ -34,7 +34,7 @@ export class Category {
     }
   }
 
-  public getId(): String {
+  public getId(): string {
     return this._id;
   }
 

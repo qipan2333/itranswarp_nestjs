@@ -8,6 +8,7 @@ import * as winston from 'winston';
 import configuration from './config/configration'
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { CommonModule } from './common/common.module';
+import { CategoryModule } from './core/category/category.module';
 
 @Module({
   imports: [
@@ -30,7 +31,7 @@ import { CommonModule } from './common/common.module';
         new winston.transports.File({ filename: '/var/log/itranswarp_nestjs/combined.log' })
       ]
     }),
-    ArticleModule, CommonModule
+    ArticleModule, CategoryModule, CommonModule
   ],
   controllers: [AppController],
   providers: [AppService],
