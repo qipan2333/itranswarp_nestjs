@@ -11,4 +11,6 @@ export interface ArticleParams {
     getDescription(): string;
 
     getUserId(): string
+
+    getContent(): string;
 }
