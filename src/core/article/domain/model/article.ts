@@ -3,57 +3,60 @@ import { ArticleParams } from '../params/article_params';
 
 @Entity()
 export class Article {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
+  @PrimaryGeneratedColumn('uuid', { name: 'id' })
+  _id: string;
 
-  @Column({ nullable: false, length: 36 })
-  userId: string;
+  @Column({ name: 'userId', nullable: false, length: 36 })
+  _userId: string;
 
-  @Column({ nullable: false, length: 36 })
-  categoryId: string;
+  @Column({ name: 'categoryId', nullable: false, length: 36 })
+  _categoryId: string;
 
-  @Column({ nullable: false, length: 36 })
-  imageId: string;
+  @Column({ name: 'imageId', nullable: false, length: 36 })
+  _imageId: string;
 
-  @Column({ nullable: false, length: 36 })
-  textId: string;
+  @Column({ name: 'textId', nullable: false, length: 36 })
+  _textId: string;
 
-  @Column({ nullable: false })
-  views: number = 0;
+  @Column({ name: 'views', nullable: false })
+  _views: number = 0;
 
-  @Column({ nullable: false, length: 100 })
-  tags: string;
+  @Column({ name: 'tags', nullable: false, length: 100 })
+  _tags: string;
 
-  @Column({ nullable: false, length: 100 })
-  name: string;
+  @Column({ name: 'name', nullable: false, length: 100 })
+  _name: string;
 
-  @Column({ nullable: false, length: 1000 })
-  description: string;
+  @Column({ name: 'description', nullable: false, length: 1000 })
+  _description: string;
 
-  @Column()
-  publishAt: number;
+  @Column({ name: 'publishAt' })
+  _publishAt: number;
 
-  @Column({ nullable: false })
-  createdAt: number;
+  @Column({ name: 'createdAt', nullable: false })
+  _createdAt: number;
 
-  @Column()
-  updatedAt: number;
+  @Column( { name: 'updatedAt' })
+  _updatedAt: number;
 
-  @Column({ nullable: false })
-  version: number = 0;
+  @Column({ name: 'version', nullable: false })
+  _version: number = 0;
 
   constructor(params?: ArticleParams) {
     if(params) {
-      this.name = params.getName();
-      this.userId = params.getUserId();
-      this.categoryId = params.getCategoryId();
-      this.tags = params.getTags();
-      this.description = params.getDescription();
-      this.createdAt = new Date().getTime();
+      this._name = params.getName();
+      this._userId = params.getUserId();
+      this._categoryId = params.getCategoryId();
+      this._tags = params.getTags();
+      this._description = params.getDescription();
+      this._createdAt = new Date().getTime();
     }
   }
-  
+
+  getId(): string {
+    return this._id;
+  }
   public textSaved(textId: string) {
-    this.textId = textId;
+    this._textId = textId;
   }
 }

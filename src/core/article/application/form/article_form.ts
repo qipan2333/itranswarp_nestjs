@@ -8,7 +8,8 @@ export class ArticleForm implements ArticleParams{
             this.userId = form.userId;
             this.categoryId = form.categoryId;
             this.tags = form.tags;
-            this.description = form.description
+            this.description = form.description;
+            this.content = form.content;
         }
     }
     
@@ -18,6 +19,7 @@ export class ArticleForm implements ArticleParams{
     private categoryId: string;
     private tags: string;
     private description: string;
+    private content: string;
     
     public getId(): string {
         return this.id;
@@ -41,5 +43,9 @@ export class ArticleForm implements ArticleParams{
     
     public getUserId(): string {
         return this.userId;
+    }
+
+    public getContent(): string {
+        return this.content;
     }
 }
