@@ -14,15 +14,10 @@ export class ArticleAppService {
 
   }
 
-  public async createArticle(articleForm: ArticleForm): Promise<string> {
+  public async createOrUpdateArticle(articleForm: ArticleForm): Promise<string> {
     this.logger.info("start create article");
-    let article: Article = await this.articleService.createArticle(articleForm).then();
-    if(article !== null) {
-      this.logger.info("start create article succeed, id = " + article.getId());
-        return article.getId();
-    }
-    this.logger.error("start create article failed");
-    return ''; 
+    let article: Article = await this.articleService.createOrUpdateArticle(articleForm).then();
+    return article.getId();
   }
 
   public async getArticleById(id: string): Promise<ArticleUi> {

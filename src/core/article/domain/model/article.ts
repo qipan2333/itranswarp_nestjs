@@ -56,6 +56,55 @@ export class Article {
   getId(): string {
     return this._id;
   }
+
+  getUserId(): string {
+    return this._userId;
+  }
+
+  getCategoryId(): string {
+    return this._categoryId;
+  }
+
+  getImageId(): string {
+    return this._imageId;
+  }
+
+  getTextId(): string {
+    return this._textId;
+  }
+
+  getViews(): number {
+    return this._views;
+  }
+
+  getTags(): string {
+    return this._tags;
+  }
+
+  getName(): string {
+    return this._name;
+  }
+
+  getDescription(): string {
+    return this._description;
+  }
+
+  getCreatedAt(): number {
+    return this._createdAt;
+  }
+
+  getPublishAt(): number {
+    return this._publishAt;
+  }
+
+  getUpdateAt(): number {
+    return this._updatedAt;
+  }
+
+  getVersion(): number {
+    return this._version;
+  }
+  
   public textSaved(textId: string) {
     this._textId = textId;
   }

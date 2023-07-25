@@ -16,21 +16,33 @@ export class ArticleService {
 
     }
     
-    public async createArticle(params :ArticleParams): Promise<Article> {
-        return this.transactionWrapper.wrapper(params, null, this.create);
+    public async createOrUpdateArticle(params :ArticleParams): Promise<Article> {
+        return this.transactionWrapper.wrapper(params, null, this.createOrUpdate);
     }
 
-    private async create(queryRunner: QueryRunner, params :ArticleParams) {
-        const hash = await sha256(params.getContent());
-        let textContent = new TextContent(hash, params.getContent());
-        await queryRunner.manager.save(textContent);
-        let article = new Article(params);
-        article.textSaved(textContent.getId());
+    private async createOrUpdate(queryRunner: QueryRunner, params :ArticleParams) {
+        let article: Article;
+        if(!params.getId()) {
+            article = new Article(params);
+        } else {
+            article = await this.findArticleById(params.getId());
+        }
+        if(params.getContent()) {
+            const hash = await sha256(params.getContent());
+            let textContent = new TextContent(hash, params.getContent());
+            await queryRunner.manager.save(textContent);
+            article.textSaved(textContent.getId());
+        }
         await queryRunner.manager.save(article);
         return article;
     }
 
     public async findArticleById(id: string): Promise<Article | null> {
-        return this.articleRepository.findOneBy({ _id: id });
+        const article =  this.articleRepository.findOneBy({ _id: id });
+        if(article) {
+            return article;
+        } else {
+            throw new Error(`Article with id = ${id} not found`);
+        }
     }
 }

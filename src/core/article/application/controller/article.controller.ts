@@ -1,21 +1,32 @@
-import { Controller, Get, Post, Body, Param } from '@nestjs/common';
+import { Controller, Get, Post, Body, Query } from '@nestjs/common';
 import { ArticleAppService } from '../service/articleapp.service';
 import { ArticleForm } from '../form/article_form';
 import { ArticleUi } from '../ui/article_ui';
+import { HttpResponse } from 'src/common/http_response';
 
 @Controller('article')
 export class ArticleController {
   constructor(private readonly appService: ArticleAppService) {}
 
-  @Post('createArticle')
-  async createArticle(@Body() articleForm: ArticleForm): Promise<string>{
-    let form = new ArticleForm(articleForm);
+  @Post('createOrArticle')
+  async createOrUpdateArticle(@Body() articleForm: ArticleForm): Promise<HttpResponse<string>>{
     
-    return await this.appService.createArticle(form);
+    try {
+      let form = new ArticleForm(articleForm);
+      const id =  await this.appService.createOrUpdateArticle(form);
+      return new HttpResponse<string>(id);
+    } catch(err) {
+      return new HttpResponse(null, err);
+    }
   }
 
   @Get('getArticle')
-  async getArticle(@Param() params: any): Promise<ArticleUi>{
-    return await this.appService.getArticleById(params.id);
+  async getArticle(@Query() params: any): Promise<HttpResponse<ArticleUi>>{
+    try {
+      const articleUi = await this.appService.getArticleById(params.id)
+      return new HttpResponse<ArticleUi>(articleUi);
+    } catch(err) {
+      return new HttpResponse(null, err);
+    }
   }
 }

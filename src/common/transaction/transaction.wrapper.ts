@@ -21,7 +21,7 @@ export class TransactionWrapper {
         } catch(err) {
             await queryRunner.rollbackTransaction();
             this.logger.error(err.stack);
-            return returnOnErr;
+            throw err;
         } finally {
             await queryRunner.release();
         }
