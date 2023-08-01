@@ -3,6 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ArticleModule } from './core/article/article.module';
+import { AttachmentModule } from './core/attachment/attachment.module';
 import { WinstonModule } from 'nest-winston';
 import * as winston from 'winston';
 import configuration from './config/configration'
@@ -31,7 +32,7 @@ import { CategoryModule } from './core/category/category.module';
         new winston.transports.File({ filename: '/var/log/itranswarp_nestjs/combined.log' })
       ]
     }),
-    ArticleModule, CategoryModule, CommonModule
+    ArticleModule, CategoryModule, AttachmentModule, CommonModule
   ],
   controllers: [AppController],
   providers: [AppService],
