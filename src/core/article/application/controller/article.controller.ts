@@ -9,23 +9,24 @@ export class ArticleController {
   constructor(private readonly appService: ArticleAppService) {}
 
   @Post('createOrArticle')
-  async createOrUpdateArticle(@Body() articleForm: ArticleForm): Promise<HttpResponse<string>>{
-    
+  async createOrUpdateArticle(
+    @Body() articleForm: ArticleForm,
+  ): Promise<HttpResponse<string>> {
     try {
-      let form = new ArticleForm(articleForm);
-      const id =  await this.appService.createOrUpdateArticle(form);
+      const form = new ArticleForm(articleForm);
+      const id = await this.appService.createOrUpdateArticle(form);
       return new HttpResponse<string>(id);
-    } catch(err) {
+    } catch (err) {
       return new HttpResponse(null, err);
     }
   }
 
   @Get('getArticle')
-  async getArticle(@Query() params: any): Promise<HttpResponse<ArticleUi>>{
+  async getArticle(@Query() params: any): Promise<HttpResponse<ArticleUi>> {
     try {
-      const articleUi = await this.appService.getArticleById(params.id)
+      const articleUi = await this.appService.getArticleById(params.id);
       return new HttpResponse<ArticleUi>(articleUi);
-    } catch(err) {
+    } catch (err) {
       return new HttpResponse(null, err);
     }
   }

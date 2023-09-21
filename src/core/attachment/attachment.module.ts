@@ -8,7 +8,7 @@ import { AttachmentAppService } from './application/service/Attachment.appservic
 import { AttachmentService } from './domain/service/attachment_service';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([ Attachment]), CommonModule],
+  imports: [TypeOrmModule.forFeature([Attachment]), CommonModule],
   controllers: [AttachmentController],
   providers: [AttachmentAppService, AttachmentService, TransactionWrapper],
 })

@@ -18,7 +18,7 @@ export class TextContent {
   updatedAt: number;
 
   @Column({ nullable: false })
-  version: number = 0;
+  version = 0;
 
   constructor(hash: string, content: string) {
     this.hash = hash;

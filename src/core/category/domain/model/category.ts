@@ -25,7 +25,7 @@ export class Category {
   public _updatedAt: number;
 
   constructor(displayOrder: number, params?: CategoryParams) {
-    if(params) {
+    if (params) {
       this._name = params.getName();
       this._tag = params.getTags();
       this._description = params.getDescription();

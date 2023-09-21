@@ -1,18 +1,17 @@
 export interface AttachmentParams {
-    
-    getId(): string;
-    
-    getUser(): string;
+  getId(): string;
 
-    getName(): string;
+  getUser(): string;
 
-    getData(): string;
+  getName(): string;
 
-    getMime(): string;
+  getData(): string;
 
-    getSize(): number;
+  getMime(): string;
 
-    getHeight(): number;
+  getSize(): number;
 
-    getWidth(): number;
+  getHeight(): number;
+
+  getWidth(): number;
 }

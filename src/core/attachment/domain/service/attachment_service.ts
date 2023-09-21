@@ -7,23 +7,25 @@ import { AttachmentParams } from '../params/attachment_params';
 
 @Injectable()
 export class AttachmentService {
-    
-    constructor(
-        private transactionWrapper: TransactionWrapper,
-        @InjectRepository(Attachment)
-        private AttachmentRepository: Repository<Attachment>) {
+  constructor(
+    private transactionWrapper: TransactionWrapper,
+    @InjectRepository(Attachment)
+    private AttachmentRepository: Repository<Attachment>,
+  ) {}
 
-    }
-    
-    public async createAttachment(params: AttachmentParams): Promise<Attachment> {
-        return this.transactionWrapper.wrapper(params, null, async (queryRunner: QueryRunner, params :AttachmentParams) => {
-            const attachment = new Attachment(params);
-            await queryRunner.manager.save(attachment);
-            return attachment;
-        });
-    }
+  public async createAttachment(params: AttachmentParams): Promise<Attachment> {
+    return this.transactionWrapper.wrapper(
+      params,
+      null,
+      async (queryRunner: QueryRunner, params: AttachmentParams) => {
+        const attachment = new Attachment(params);
+        await queryRunner.manager.save(attachment);
+        return attachment;
+      },
+    );
+  }
 
-    public async findAttachmentById(id: string): Promise<Attachment | null> {
-        return this.AttachmentRepository.findOneBy({ _id: id });
-    }
+  public async findAttachmentById(id: string): Promise<Attachment | null> {
+    return this.AttachmentRepository.findOneBy({ _id: id });
+  }
 }

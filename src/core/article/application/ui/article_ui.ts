@@ -1,7 +1,4 @@
-import { MyUtil } from "src/common/my_util";
-import { Article } from "../../domain/model/article";
-import { threadId } from "worker_threads";
-import { throws } from "assert";
+import { Article } from '../../domain/model/article';
 
 export class ArticleUi {
   id: string;
@@ -30,7 +27,7 @@ export class ArticleUi {
 
   version: number;
 
-  constructor(article :Article) {
+  constructor(article: Article) {
     this.id = article.getId();
     this.userId = article.getUserId();
     this.categoryId = article.getCategoryId();
@@ -41,9 +38,8 @@ export class ArticleUi {
     this.name = article.getName();
     this.description = article.getDescription();
     this.publishAt = article.getPublishAt();
-    this.createdAt = article.getCreatedAt()
+    this.createdAt = article.getCreatedAt();
     this.updatedAt = article.getUpdateAt();
     this.version = article.getVersion();
   }
-
 }

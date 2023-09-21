@@ -1,16 +1,15 @@
 export interface ArticleParams {
+  getId(): string;
 
-    getId(): string;
+  getCategoryId(): string;
 
-    getCategoryId(): string;
+  getTags(): string;
 
-    getTags(): string;
+  getName(): string;
 
-    getName(): string;
+  getDescription(): string;
 
-    getDescription(): string;
+  getUserId(): string;
 
-    getUserId(): string
-
-    getContent(): string;
+  getContent(): string;
 }

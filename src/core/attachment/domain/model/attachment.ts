@@ -25,7 +25,7 @@ export class Attachment {
   public _height: number;
 
   constructor(params?: AttachmentParams) {
-    if(params) {
+    if (params) {
       this._name = params.getName();
       this._userId = params.getUser();
       this._mime = params.getMime();

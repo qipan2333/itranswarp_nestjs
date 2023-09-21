@@ -1,10 +1,9 @@
 export interface CategoryParams {
-    
-    getId(): string;
+  getId(): string;
 
-    getName(): string;
+  getName(): string;
 
-    getTags(): string;
-    
-    getDescription(): string;
+  getTags(): string;
+
+  getDescription(): string;
 }

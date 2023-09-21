@@ -19,7 +19,7 @@ export class Article {
   _textId: string;
 
   @Column({ name: 'views', nullable: false })
-  _views: number = 0;
+  _views = 0;
 
   @Column({ name: 'tags', nullable: false, length: 100 })
   _tags: string;
@@ -36,14 +36,14 @@ export class Article {
   @Column({ name: 'createdAt', nullable: false })
   _createdAt: number;
 
-  @Column( { name: 'updatedAt' })
+  @Column({ name: 'updatedAt' })
   _updatedAt: number;
 
   @Column({ name: 'version', nullable: false })
-  _version: number = 0;
+  _version = 0;
 
   constructor(params?: ArticleParams) {
-    if(params) {
+    if (params) {
       this._name = params.getName();
       this._userId = params.getUserId();
       this._categoryId = params.getCategoryId();
@@ -104,7 +104,7 @@ export class Article {
   getVersion(): number {
     return this._version;
   }
-  
+
   public textSaved(textId: string) {
     this._textId = textId;
   }

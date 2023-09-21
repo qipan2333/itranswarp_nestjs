@@ -6,7 +6,7 @@ import { ArticleModule } from './core/article/article.module';
 import { AttachmentModule } from './core/attachment/attachment.module';
 import { WinstonModule } from 'nest-winston';
 import * as winston from 'winston';
-import configuration from './config/configration'
+import configuration from './config/configration';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { CommonModule } from './common/common.module';
 import { CategoryModule } from './core/category/category.module';
@@ -20,19 +20,23 @@ import { CategoryModule } from './core/category/category.module';
     }),
 
     TypeOrmModule.forRootAsync({
-      useFactory: (
-        configService: ConfigService,
-      ) => configService.get<object>('db.mysql'),
+      useFactory: (configService: ConfigService) =>
+        configService.get<object>('db.mysql'),
       inject: [ConfigService],
     }),
 
     WinstonModule.forRoot({
       transports: [
         new winston.transports.Console(),
-        new winston.transports.File({ filename: '/var/log/itranswarp_nestjs/combined.log' })
-      ]
+        new winston.transports.File({
+          filename: '/var/log/itranswarp_nestjs/combined.log',
+        }),
+      ],
     }),
-    ArticleModule, CategoryModule, AttachmentModule, CommonModule
+    ArticleModule,
+    CategoryModule,
+    AttachmentModule,
+    CommonModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -1,53 +1,53 @@
-import { AttachmentParams } from "../../domain/params/attachment_params";
+import { AttachmentParams } from '../../domain/params/attachment_params';
 
-export class AttachmentForm implements AttachmentParams{
-    constructor(form?: AttachmentForm) {
-        if(form) {
-            this.id = form.id;
-            this.name = form.name;
-            this.data = form.data;
-            this.user = form.user;
-        }
+export class AttachmentForm implements AttachmentParams {
+  constructor(form?: AttachmentForm) {
+    if (form) {
+      this.id = form.id;
+      this.name = form.name;
+      this.data = form.data;
+      this.user = form.user;
     }
+  }
 
-    private id: string;
-    private name: string;
-    private data: string;
-    private user: string;
-    private mime: string;
-    private size: number;
-    private height: number;
-    private width: number;
-    
-    public getId(): string {
-        return this.id;
-    }
+  private id: string;
+  private name: string;
+  private data: string;
+  private user: string;
+  private mime: string;
+  private size: number;
+  private height: number;
+  private width: number;
 
-    public getName(): string {
-        return this.name;
-    }
+  public getId(): string {
+    return this.id;
+  }
 
-    public getData(): string {
-        return this.data;
-    }
+  public getName(): string {
+    return this.name;
+  }
 
-    public getUser(): string {
-        return this.user;
-    }
+  public getData(): string {
+    return this.data;
+  }
 
-    public getMime(): string {
-        return this.mime;
-    }
+  public getUser(): string {
+    return this.user;
+  }
 
-    public getSize(): number {
-        return this.size;
-    }
+  public getMime(): string {
+    return this.mime;
+  }
 
-    public getHeight(): number {
-        return this.height;
-    }
+  public getSize(): number {
+    return this.size;
+  }
 
-    public getWidth(): number {
-        return this.width;
-    }
+  public getHeight(): number {
+    return this.height;
+  }
+
+  public getWidth(): number {
+    return this.width;
+  }
 }

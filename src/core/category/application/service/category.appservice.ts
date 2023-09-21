@@ -6,21 +6,23 @@ import { CategoryForm } from '../form/category_form';
 
 @Injectable()
 export class CategoryAppService {
-  constructor(private readonly categoryService: CategoryService,
-              @Inject(WINSTON_MODULE_PROVIDER) private readonly logger: Logger) {
-
-  }
+  constructor(
+    private readonly categoryService: CategoryService,
+    @Inject(WINSTON_MODULE_PROVIDER) private readonly logger: Logger,
+  ) {}
 
   public async createCategory(categoryForm: CategoryForm): Promise<string> {
     this.logger.info('start create article');
-    const category = await this.categoryService.createCategory(categoryForm).then();
+    const category = await this.categoryService
+      .createCategory(categoryForm)
+      .then();
     if (category !== null) {
-      this.logger.info('start create category succeed, id = ' + category.getId());
+      this.logger.info(
+        'start create category succeed, id = ' + category.getId(),
+      );
       return category.getId();
     }
     this.logger.error('start create category failed');
     return '';
   }
-
-
 }
