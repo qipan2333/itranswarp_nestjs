@@ -5,6 +5,7 @@ import { Article } from '../../domain/model/article';
 import { WINSTON_MODULE_PROVIDER } from 'nest-winston';
 import { Logger } from 'winston';
 import { ArticleUi } from '../ui/article_ui';
+import { showdown } from 'showdown';
 
 @Injectable()
 export class ArticleAppService {
@@ -26,5 +27,10 @@ export class ArticleAppService {
   public async getArticleById(id: string): Promise<ArticleUi> {
     const article = await this.articleService.findArticleById(id);
     return new ArticleUi(article);
+  }
+
+  public mdToHtml(content: string): string {
+    const converter = new showdown.Converter();
+    return converter.makeHtml(content);
   }
 }
