@@ -5,10 +5,12 @@ import { Article } from '../../domain/model/article';
 import { WINSTON_MODULE_PROVIDER } from 'nest-winston';
 import { Logger } from 'winston';
 import { ArticleUi } from '../ui/article_ui';
-import { showdown } from 'showdown';
+import * as showdown from 'showdown';
 
 @Injectable()
 export class ArticleAppService {
+  private converter = new showdown.Converter();
+
   constructor(
     private readonly articleService: ArticleService,
     @Inject(WINSTON_MODULE_PROVIDER) private readonly logger: Logger,
@@ -29,8 +31,8 @@ export class ArticleAppService {
     return new ArticleUi(article);
   }
 
-  public mdToHtml(content: string): string {
-    const converter = new showdown.Converter();
-    return converter.makeHtml(content);
+  public async mdToHtml(id: string): Promise<string> {
+    const textContent = await this.articleService.findContentByArticleId(id);
+    return this.converter.makeHtml(textContent.getContent());
   }
 }

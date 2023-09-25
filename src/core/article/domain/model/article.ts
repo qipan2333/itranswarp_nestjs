@@ -18,8 +18,8 @@ export class Article {
   @Column({ name: 'textId', nullable: false, length: 36 })
   _textId: string;
 
-  @Column({ name: 'views', nullable: false })
-  _views = 0;
+  @Column({ name: 'views', nullable: false, default: 0 })
+  _views: number;
 
   @Column({ name: 'tags', nullable: false, length: 100 })
   _tags: string;
@@ -39,8 +39,8 @@ export class Article {
   @Column({ name: 'updatedAt' })
   _updatedAt: number;
 
-  @Column({ name: 'version', nullable: false })
-  _version = 0;
+  @Column({ name: 'version', nullable: false, default: 0 })
+  _version: number;
 
   constructor(params?: ArticleParams) {
     if (params) {

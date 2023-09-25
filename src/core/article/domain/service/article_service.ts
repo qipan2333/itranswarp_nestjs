@@ -13,6 +13,8 @@ export class ArticleService {
     private transactionWrapper: TransactionWrapper,
     @InjectRepository(Article)
     private articleRepository: Repository<Article>,
+    @InjectRepository(TextContent)
+    private textContentRepository: Repository<TextContent>,
   ) {}
 
   public async createOrUpdateArticle(params: ArticleParams): Promise<Article> {
@@ -43,6 +45,21 @@ export class ArticleService {
     const article = this.articleRepository.findOneBy({ _id: id });
     if (article) {
       return article;
+    } else {
+      throw new Error(`Article with id = ${id} not found`);
+    }
+  }
+
+  public async findContentByArticleId(id: string): Promise<TextContent | null> {
+    const article = await this.articleRepository.findOneBy({ _id: id });
+    if (article) {
+      const textId = article.getTextId();
+      const textContent = await this.textContentRepository.findOneBy({ _id: textId });
+      if (textContent) {
+        return textContent;
+      } else {
+        throw new Error(`TextContent with id = ${textId} not found`);
+      }
     } else {
       throw new Error(`Article with id = ${id} not found`);
     }

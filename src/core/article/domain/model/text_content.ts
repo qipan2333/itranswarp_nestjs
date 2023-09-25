@@ -2,31 +2,35 @@ import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class TextContent {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
+  @PrimaryGeneratedColumn('uuid', { name: 'id' })
+  _id: string;
 
-  @Column({ nullable: false, length: 64 })
-  hash: string;
+  @Column({ name: 'hash', nullable: false, length: 64 })
+  _hash: string;
 
-  @Column({ nullable: false })
-  content: string;
+  @Column({ name: 'content', nullable: false })
+  _content: string;
 
-  @Column({ nullable: false })
-  createdAt: number;
+  @Column({ name: 'createdAt', nullable: false })
+  _createdAt: number;
 
-  @Column()
-  updatedAt: number;
+  @Column({ name: 'updatedAt' })
+  _updatedAt: number;
 
-  @Column({ nullable: false })
-  version = 0;
+  @Column({ name: 'version', nullable: false, default: 0 })
+  _version: number;
 
   constructor(hash: string, content: string) {
-    this.hash = hash;
-    this.content = content;
-    this.createdAt = new Date().getTime();
+    this._hash = hash;
+    this._content = content;
+    this._createdAt = new Date().getTime();
   }
 
   public getId(): string {
-    return this.id;
+    return this._id;
+  }
+
+  public getContent(): string {
+    return this._content;
   }
 }

@@ -8,7 +8,7 @@ import { HttpResponse } from 'src/common/http_response';
 export class ArticleController {
   constructor(private readonly appService: ArticleAppService) {}
 
-  @Post('createOrArticle')
+  @Post('createOrUpdateArticle')
   async createOrUpdateArticle(
     @Body() articleForm: ArticleForm,
   ): Promise<HttpResponse<string>> {
@@ -26,6 +26,16 @@ export class ArticleController {
     try {
       const articleUi = await this.appService.getArticleById(params.id);
       return new HttpResponse<ArticleUi>(articleUi);
+    } catch (err) {
+      return new HttpResponse(null, err);
+    }
+  }
+
+  @Get('getContent')
+  async getContent(@Query() params: any): Promise<HttpResponse<string>> {
+    try {
+      const html = await this.appService.mdToHtml(params.id);
+      return new HttpResponse<string>(html);
     } catch (err) {
       return new HttpResponse(null, err);
     }
